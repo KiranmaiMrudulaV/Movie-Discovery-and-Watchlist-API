@@ -2,6 +2,7 @@ using MongoDB.Driver;
 using Microsoft.Extensions.Options;
 using MovieWatchlistApi.Configuration;
 using MovieWatchlistApi.Repositories;
+using MovieWatchlistApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddSingleton<IMongoDatabase>(serviceProvider =>
 });
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+
 
 
 var app = builder.Build();
