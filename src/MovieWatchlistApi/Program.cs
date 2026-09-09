@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MovieWatchlistApi.Configuration;
 using MovieWatchlistApi.Repositories;
 using MovieWatchlistApi.Services;
+using MovieWatchlistApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,9 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
