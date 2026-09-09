@@ -25,6 +25,7 @@ public class MovieService : IMovieService
     public async Task<Movie> CreateAsync(Movie movie)
     {
         ValidateReleaseYear(movie.ReleaseYear);
+        movie.Id = string.Empty; // always let MongoDB generate a fresh id — ignore anything the client sent
         await _movieRepository.CreateAsync(movie);
         return movie;
     }
@@ -32,6 +33,7 @@ public class MovieService : IMovieService
     public async Task UpdateAsync(string id, Movie movie)
     {
         ValidateReleaseYear(movie.ReleaseYear);
+        movie.Id = id; // the URL is the source of truth for identity, never the request body
         await _movieRepository.UpdateAsync(id, movie);
     }
 
